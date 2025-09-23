@@ -9,3 +9,4 @@ npm add react-native-chart-kit@latest react-native-svg@latest
 node server/server.js
 
 npm run dev# SmartBudget
+# SmartBudget
