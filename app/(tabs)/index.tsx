@@ -253,7 +253,7 @@ export default function Dashboard() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a', // Dark navy background
+    backgroundColor: '#0f172a', 
   },
   centered: {
     justifyContent: 'center',
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 18,
-    color: '#94a3b8', // Gray loading text
+    color: '#94a3b8', 
   },
   header: {
     flexDirection: 'row',
@@ -269,28 +269,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     paddingTop: 60,
-    backgroundColor: '#1e293b', // Darker navy header
+    backgroundColor: '#1e293b', 
     borderBottomWidth: 1,
     borderBottomColor: '#334155',
   },
   welcomeText: {
     fontSize: 16,
-    color: '#94a3b8', // Muted gray
+    color: '#94a3b8',
   },
   userName: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#f8fafc', // White
+    color: '#f8fafc', 
     marginTop: 4,
   },
   logoutButton: {
     paddingHorizontal: 16,
     paddingVertical: 8,
-    backgroundColor: '#dc2626', // Red button
+    backgroundColor: '#dc2626',
     borderRadius: 8,
   },
   logoutText: {
-    color: '#f8fafc', // White text
+    color: '#f8fafc', 
     fontWeight: '500',
   },
   summaryContainer: {
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   summaryCard: {
-    backgroundColor: '#1e293b', // Dark cards
+    backgroundColor: '#1e293b', 
     borderRadius: 16,
     padding: 20,
     shadowColor: '#000',
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   balanceCard: {
-    backgroundColor: '#2563eb', // Blue accent card
+    backgroundColor: '#2563eb', 
   },
   incomeCard: {
     flex: 1,
@@ -330,12 +330,12 @@ const styles = StyleSheet.create({
   summaryTitle: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#f8fafc', // White
+    color: '#f8fafc', 
   },
   summaryAmount: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#f8fafc', // White
+    color: '#f8fafc', 
   },
   section: {
     padding: 20,
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#f8fafc', // White
+    color: '#f8fafc', 
     marginBottom: 16,
   },
   emptyState: {
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
   transactionCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1e293b', // Dark card background
+    backgroundColor: '#1e293b', 
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
@@ -396,12 +396,12 @@ const styles = StyleSheet.create({
   transactionCategory: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#f8fafc', // White
+    color: '#f8fafc', 
     marginBottom: 4,
   },
   transactionDescription: {
     fontSize: 14,
-    color: '#94a3b8', // Light gray
+    color: '#94a3b8', 
     marginBottom: 4,
   },
   transactionMeta: {
@@ -411,7 +411,7 @@ const styles = StyleSheet.create({
   },
   transactionDate: {
     fontSize: 12,
-    color: '#64748b', // Muted gray
+    color: '#64748b', 
   },
   transactionRight: {
     alignItems: 'flex-end',
