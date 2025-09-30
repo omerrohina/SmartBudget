@@ -10,8 +10,8 @@ import {
   Modal,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNPickerSelect from 'react-native-picker-select';
 import { Calendar, DollarSign, Tag, FileText } from 'lucide-react-native';
 
 const API_BASE = 'http://localhost:3001/api';
@@ -89,13 +89,10 @@ export default function AddTransaction() {
 
       if (response.ok) {
         Alert.alert('Success', 'Transaction added successfully');
-        // Reset form
         setAmount('');
         setDescription('');
         setDate(new Date().toISOString().split('T')[0]);
         setCategoryId(categories.length > 0 ? categories[0].id : null);
-        
-        // Navigate to dashboard to show the new transaction
         router.push('/(tabs)');
       } else {
         const errorData = await response.json();
@@ -114,12 +111,15 @@ export default function AddTransaction() {
 
   return (
     <ScrollView style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.title}>Add Transaction</Text>
         <Text style={styles.subtitle}>Track your income and expenses</Text>
       </View>
 
+      {/* Form */}
       <View style={styles.form}>
+
         {/* Transaction Type */}
         <View style={styles.section}>
           <Text style={styles.label}>Transaction Type</Text>
@@ -147,14 +147,14 @@ export default function AddTransaction() {
         <View style={styles.section}>
           <Text style={styles.label}>Amount</Text>
           <View style={styles.inputContainer}>
-            <DollarSign size={20} color="#64748b" style={styles.inputIcon} />
+            <DollarSign size={20} color="#f8fafc" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               value={amount}
               onChangeText={setAmount}
               placeholder="0.00"
-              keyboardType="numeric"
               placeholderTextColor="#94a3b8"
+              keyboardType="numeric"
             />
           </View>
         </View>
@@ -163,31 +163,30 @@ export default function AddTransaction() {
         <View style={styles.section}>
           <Text style={styles.label}>Category</Text>
           <View style={styles.inputContainer}>
-            <Tag size={20} color="#64748b" style={styles.inputIcon} />
-            <Picker
-              selectedValue={categoryId}
-              style={styles.picker}
-              onValueChange={(itemValue) => setCategoryId(itemValue)}
-            >
-              {categories.map((category) => (
-                <Picker.Item
-                  key={category.id}
-                  label={category.name}
-                  value={category.id}
-                />
-              ))}
-            </Picker>
+            <Tag size={20} color="#f8fafc" style={styles.inputIcon} />
+            <RNPickerSelect
+              onValueChange={(value) => setCategoryId(value)}
+              value={categoryId}
+              placeholder={{ label: 'Select a category', value: null, color: '#94a3b8' }}
+              items={categories.map(c => ({ label: c.name, value: c.id }))}
+              style={{
+                inputIOS: styles.picker,
+                inputAndroid: styles.picker,
+                placeholder: { color: '#94a3b8' },
+              }}
+              useNativeAndroidPickerStyle={false}
+            />
           </View>
         </View>
 
         {/* Date */}
         <View style={styles.section}>
           <Text style={styles.label}>Date</Text>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.inputContainer}
             onPress={() => setShowDatePicker(true)}
           >
-            <Calendar size={20} color="#64748b" style={styles.inputIcon} />
+            <Calendar size={20} color="#f8fafc" style={styles.inputIcon} />
             <Text style={styles.dateText}>{formatDate(date)}</Text>
           </TouchableOpacity>
         </View>
@@ -196,15 +195,15 @@ export default function AddTransaction() {
         <View style={styles.section}>
           <Text style={styles.label}>Description (Optional)</Text>
           <View style={styles.inputContainer}>
-            <FileText size={20} color="#64748b" style={styles.inputIcon} />
+            <FileText size={20} color="#f8fafc" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               value={description}
               onChangeText={setDescription}
               placeholder="Add a note..."
+              placeholderTextColor="#94a3b8"
               multiline
               numberOfLines={3}
-              placeholderTextColor="#94a3b8"
             />
           </View>
         </View>
@@ -223,6 +222,7 @@ export default function AddTransaction() {
             {loading ? 'Adding...' : `Add ${type === 'income' ? 'Income' : 'Expense'}`}
           </Text>
         </TouchableOpacity>
+
       </View>
 
       {/* Date Picker Modal */}
@@ -240,6 +240,7 @@ export default function AddTransaction() {
               value={date}
               onChangeText={setDate}
               placeholder="YYYY-MM-DD"
+              placeholderTextColor="#94a3b8"
             />
             <View style={styles.modalButtons}>
               <TouchableOpacity
@@ -265,24 +266,24 @@ export default function AddTransaction() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#0f172a', 
   },
   header: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b', 
     padding: 20,
     paddingTop: 60,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: '#334155',
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#f8fafc', 
     marginBottom: 4,
   },
   subtitle: {
     fontSize: 16,
-    color: '#64748b',
+    color: '#94a3b8', 
   },
   form: {
     padding: 20,
@@ -294,12 +295,12 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#374151',
+    color: '#f8fafc', 
     marginBottom: 8,
   },
   typeContainer: {
     flexDirection: 'row',
-    backgroundColor: '#f1f5f9',
+    backgroundColor: '#1e293b', 
     borderRadius: 12,
     padding: 4,
   },
@@ -310,7 +311,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   typeButtonActive: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#2563eb', 
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
@@ -320,18 +321,18 @@ const styles = StyleSheet.create({
   typeText: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#64748b',
+    color: '#94a3b8', 
   },
   typeTextActive: {
-    color: '#1e293b',
+    color: '#f8fafc', 
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b', 
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: '#334155',
     paddingHorizontal: 16,
     paddingVertical: 12,
     shadowColor: '#000',
@@ -342,20 +343,22 @@ const styles = StyleSheet.create({
   },
   inputIcon: {
     marginRight: 12,
+    color: '#f8fafc', 
   },
   input: {
     flex: 1,
     fontSize: 16,
-    color: '#1e293b',
+    color: '#f8fafc', 
   },
   picker: {
     flex: 1,
+    color: '#f8fafc', 
     height: 40,
   },
   dateText: {
     flex: 1,
     fontSize: 16,
-    color: '#1e293b',
+    color: '#f8fafc',
     paddingVertical: 4,
   },
   submitButton: {
@@ -373,18 +376,18 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   submitButtonText: {
-    color: '#ffffff',
+    color: '#f8fafc',
     fontSize: 18,
     fontWeight: 'bold',
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b',
     borderRadius: 16,
     padding: 24,
     width: '90%',
@@ -393,17 +396,19 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#f8fafc',
     marginBottom: 16,
     textAlign: 'center',
   },
   dateInput: {
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: '#334155',
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
     marginBottom: 16,
+    color: '#f8fafc',
+    backgroundColor: '#1e293b',
   },
   modalButtons: {
     flexDirection: 'row',
@@ -415,7 +420,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: '#334155',
   },
   modalButtonPrimary: {
     backgroundColor: '#2563eb',
@@ -424,9 +429,9 @@ const styles = StyleSheet.create({
   modalButtonText: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#64748b',
+    color: '#94a3b8',
   },
   modalButtonTextPrimary: {
-    color: '#ffffff',
+    color: '#f8fafc',
   },
 });

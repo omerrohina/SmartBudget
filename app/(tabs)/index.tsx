@@ -253,7 +253,7 @@ export default function Dashboard() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#0f172a', // Dark navy background
   },
   centered: {
     justifyContent: 'center',
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 18,
-    color: '#64748b',
+    color: '#94a3b8', // Gray loading text
   },
   header: {
     flexDirection: 'row',
@@ -269,28 +269,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     paddingTop: 60,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b', // Darker navy header
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: '#334155',
   },
   welcomeText: {
     fontSize: 16,
-    color: '#64748b',
+    color: '#94a3b8', // Muted gray
   },
   userName: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#f8fafc', // White
     marginTop: 4,
   },
   logoutButton: {
     paddingHorizontal: 16,
     paddingVertical: 8,
-    backgroundColor: '#fee2e2',
+    backgroundColor: '#dc2626', // Red button
     borderRadius: 8,
   },
   logoutText: {
-    color: '#dc2626',
+    color: '#f8fafc', // White text
     fontWeight: '500',
   },
   summaryContainer: {
@@ -298,17 +298,17 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   summaryCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b', // Dark cards
     borderRadius: 16,
     padding: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
     elevation: 4,
   },
   balanceCard: {
-    backgroundColor: '#2563eb',
+    backgroundColor: '#2563eb', // Blue accent card
   },
   incomeCard: {
     flex: 1,
@@ -330,12 +330,12 @@ const styles = StyleSheet.create({
   summaryTitle: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#ffffff',
+    color: '#f8fafc', // White
   },
   summaryAmount: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#f8fafc', // White
   },
   section: {
     padding: 20,
@@ -343,39 +343,39 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#f8fafc', // White
     marginBottom: 16,
   },
   emptyState: {
     alignItems: 'center',
     padding: 40,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b',
     borderRadius: 16,
     borderWidth: 2,
-    borderColor: '#e2e8f0',
+    borderColor: '#334155',
     borderStyle: 'dashed',
   },
   emptyText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#64748b',
+    color: '#94a3b8',
     marginBottom: 8,
   },
   emptySubtext: {
     fontSize: 14,
-    color: '#94a3b8',
+    color: '#64748b',
     textAlign: 'center',
   },
   transactionCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b', // Dark card background
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
   },
@@ -396,12 +396,12 @@ const styles = StyleSheet.create({
   transactionCategory: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1e293b',
+    color: '#f8fafc', // White
     marginBottom: 4,
   },
   transactionDescription: {
     fontSize: 14,
-    color: '#64748b',
+    color: '#94a3b8', // Light gray
     marginBottom: 4,
   },
   transactionMeta: {
@@ -411,7 +411,7 @@ const styles = StyleSheet.create({
   },
   transactionDate: {
     fontSize: 12,
-    color: '#64748b',
+    color: '#64748b', // Muted gray
   },
   transactionRight: {
     alignItems: 'flex-end',
