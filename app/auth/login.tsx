@@ -46,7 +46,6 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        // Store token and user data
         await AsyncStorage.multiSet([
           ['token', data.token],
           ['user', JSON.stringify(data.user)],
@@ -64,11 +63,6 @@ export default function Login() {
     }
   };
 
-  const fillDemoCredentials = () => {
-    setEmail('demo@smartbudget.com');
-    setPassword('demo123');
-  };
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -78,10 +72,10 @@ export default function Login() {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.logoContainer}>
-            <DollarSign size={40} color="#2563eb" />
+            <DollarSign size={40} color="#60a5fa" />
           </View>
-          <Text style={styles.title}>Welcome Back</Text>
-          <Text style={styles.subtitle}>Sign in to your SmartBudget account</Text>
+          <Text style={styles.title}>Welcome to SmartBudget</Text>
+          <Text style={styles.subtitle}>Where budgeting is easy and at your fingertips.</Text>
         </View>
 
         {/* Form */}
@@ -90,13 +84,13 @@ export default function Login() {
           <View style={styles.inputSection}>
             <Text style={styles.label}>Email Address</Text>
             <View style={styles.inputContainer}>
-              <Mail size={20} color="#64748b" />
+              <Mail size={20} color="#9ca3af" />
               <TextInput
                 style={styles.input}
                 value={email}
                 onChangeText={setEmail}
                 placeholder="Enter your email"
-                placeholderTextColor="#94a3b8"
+                placeholderTextColor="#6b7280"
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoComplete="email"
@@ -108,21 +102,21 @@ export default function Login() {
           <View style={styles.inputSection}>
             <Text style={styles.label}>Password</Text>
             <View style={styles.inputContainer}>
-              <Lock size={20} color="#64748b" />
+              <Lock size={20} color="#9ca3af" />
               <TextInput
                 style={styles.input}
                 value={password}
                 onChangeText={setPassword}
                 placeholder="Enter your password"
-                placeholderTextColor="#94a3b8"
+                placeholderTextColor="#6b7280"
                 secureTextEntry={!showPassword}
                 autoComplete="password"
               />
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                 {showPassword ? (
-                  <EyeOff size={20} color="#64748b" />
+                  <EyeOff size={20} color="#9ca3af" />
                 ) : (
-                  <Eye size={20} color="#64748b" />
+                  <Eye size={20} color="#9ca3af" />
                 )}
               </TouchableOpacity>
             </View>
@@ -168,7 +162,7 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#0f172a', 
   },
   scrollContainer: {
     flexGrow: 1,
@@ -184,7 +178,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#dbeafe',
+    backgroundColor: '#1e293b',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
@@ -192,13 +186,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#f1f5f9', 
     marginBottom: 8,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: '#64748b',
+    color: '#94a3b8',
     textAlign: 'center',
   },
   form: {
@@ -211,15 +205,15 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#374151',
+    color: '#e2e8f0',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b',
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: '#334155',
     paddingHorizontal: 16,
     paddingVertical: 12,
     gap: 12,
@@ -227,7 +221,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
-    color: '#1e293b',
+    color: '#f8fafc',
   },
   loginButton: {
     backgroundColor: '#2563eb',
@@ -237,7 +231,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     shadowColor: '#2563eb',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.4,
     shadowRadius: 8,
     elevation: 4,
   },
@@ -246,7 +240,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
   },
   loginButtonText: {
-    color: '#ffffff',
+    color: '#f8fafc',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -258,27 +252,27 @@ const styles = StyleSheet.create({
   },
   registerText: {
     fontSize: 16,
-    color: '#64748b',
+    color: '#94a3b8',
   },
   registerLink: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#2563eb',
+    color: '#60a5fa',
   },
   features: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b',
     borderRadius: 16,
     padding: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.6,
     shadowRadius: 8,
     elevation: 4,
   },
   featuresTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#f8fafc',
     marginBottom: 16,
     textAlign: 'center',
   },
@@ -287,7 +281,7 @@ const styles = StyleSheet.create({
   },
   featureItem: {
     fontSize: 16,
-    color: '#374151',
+    color: '#e2e8f0',
     textAlign: 'center',
   },
 });

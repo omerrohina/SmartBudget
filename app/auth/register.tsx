@@ -215,14 +215,7 @@ export default function Register() {
               </TouchableOpacity>
             </Link>
           </View>
-        </View>
-
-        {/* Terms */}
-        <View style={styles.terms}>
-          <Text style={styles.termsText}>
-            By creating an account, you agree to SmartBudget's Terms of Service and Privacy Policy
-          </Text>
-        </View>
+        </View>        
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -231,7 +224,7 @@ export default function Register() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#0f172a', 
   },
   scrollContainer: {
     flexGrow: 1,
@@ -247,7 +240,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#dbeafe',
+    backgroundColor: '#1e293b', 
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
@@ -255,13 +248,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#f1f5f9', 
     marginBottom: 8,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: '#64748b',
+    color: '#94a3b8', 
     textAlign: 'center',
   },
   form: {
@@ -274,15 +267,15 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#374151',
+    color: '#e2e8f0', 
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b', 
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: '#334155', 
     paddingHorizontal: 16,
     paddingVertical: 12,
     gap: 12,
@@ -290,38 +283,38 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
-    color: '#1e293b',
+    color: '#f8fafc', 
   },
   passwordRequirements: {
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#1e293b', 
     borderRadius: 8,
     padding: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: '#334155',
   },
   requirementsTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#374151',
+    color: '#f8fafc', 
     marginBottom: 8,
   },
   requirement: {
     fontSize: 14,
-    color: '#64748b',
+    color: '#94a3b8',
     marginBottom: 4,
   },
   requirementMet: {
-    color: '#10b981',
+    color: '#10b981', 
   },
   registerButton: {
-    backgroundColor: '#10b981',
+    backgroundColor: '#2563eb', 
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',
     marginTop: 8,
-    shadowColor: '#10b981',
+    shadowColor: '#2563eb',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.4,
     shadowRadius: 8,
     elevation: 4,
   },
@@ -330,7 +323,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
   },
   registerButtonText: {
-    color: '#ffffff',
+    color: '#f8fafc',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -342,12 +335,12 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 16,
-    color: '#64748b',
+    color: '#94a3b8', 
   },
   loginLink: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#2563eb',
+    color: '#60a5fa', 
   },
   terms: {
     alignItems: 'center',
