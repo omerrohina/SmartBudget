@@ -149,24 +149,26 @@ router.get('/summary', authenticateToken, (req, res) => {
 
 // Get category analytics
 router.get('/analytics/categories', authenticateToken, (req, res) => {
-  const { startDate, endDate, type = 'expense' } = req.query;
+  const { startDate, endDate, type} = req.query;
   
   let query = `
-    SELECT c.name, c.color, SUM(t.amount) as total 
+    SELECT c.name, c.color, SUM(t.amount) as total, COUNT(*) as count
     FROM transactions t 
     LEFT JOIN categories c ON t.category_id = c.id 
-    WHERE t.user_id = ? AND t.type = ?
+    WHERE t.user_id = ?
   `;
   let params = [req.user.userId, type];
-
   if (startDate) {
     query += ' AND t.date >= ?';
     params.push(startDate);
   }
-  
   if (endDate) {
     query += ' AND t.date <= ?';
     params.push(endDate);
+  }
+  if (type) {
+    query += ' AND t.type = ?';
+    params.push(type);
   }
 
   query += ' GROUP BY t.category_id, c.name, c.color HAVING total > 0 ORDER BY total DESC';

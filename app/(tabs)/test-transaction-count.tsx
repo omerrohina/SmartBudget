@@ -23,7 +23,7 @@ export default function AddTransaction() {
 
   useEffect(() => {
     fetchCatCounts();
-  }); //, [type]);
+  }, []); //, [type]);
 
 
   const fetchCatCounts = async () => {
