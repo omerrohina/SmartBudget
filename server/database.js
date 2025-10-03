@@ -29,6 +29,20 @@ const initDB = () => {
         )
       `);
 
+      // Budget table
+      db.run(`
+        CREATE TABLE IF NOT EXISTS budget (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          user_id INTEGER NOT NULL,
+          title TEXT NOT NULL,
+          amount DECIMAL(10, 2) NOT NULL,
+          date DATE NOT NULL,
+          description TEXT,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY (user_id) REFERENCES users (id) on DELETE CASCADE
+          )
+      `);
+ 
       // Transactions table
       db.run(`
         CREATE TABLE IF NOT EXISTS transactions (
@@ -37,11 +51,13 @@ const initDB = () => {
           type TEXT NOT NULL CHECK (type IN ('income', 'expense')),
           amount DECIMAL(10, 2) NOT NULL,
           category_id INTEGER,
+          budget_id INTEGER DEFAULT NULL,
           description TEXT,
           date DATE NOT NULL,
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
           FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
           FOREIGN KEY (category_id) REFERENCES categories (id)
+          FOREIGN KEY (budget_id) REFERENCES budget (id)
         )
       `);
 
@@ -76,6 +92,8 @@ const initDB = () => {
         } else {
           resolve();
         }
+
+     
       });
     });
   });
