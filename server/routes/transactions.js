@@ -35,6 +35,7 @@ router.get('/', authenticateToken, (req, res) => {
     query += ' AND t.type = ?';
     params.push(type);
   }
+    printf("hello");
 
   query += ' ORDER BY t.date DESC, t.created_at DESC';
 

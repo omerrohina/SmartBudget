@@ -17,12 +17,14 @@ import { Calendar, DollarSign, Tag, FileText } from 'lucide-react-native';
 
 const API_BASE = 'http://localhost:3001/api';
 
-export default function AddTransaction() {
+export default function GetCategoryAnalytics() {
   const router = useRouter();
   const [catCounts, setCatCounts] = useState([]); //<Category[]>([]);
+  const [budgets, setBudgets] = useState([]); //<Category[]>([]);
 
   useEffect(() => {
     fetchCatCounts();
+    fetchBudgets();
   }, []); //, [type]);
 
 
@@ -45,10 +47,31 @@ export default function AddTransaction() {
     }
   };
 
+  const fetchBudgets = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const response = await fetch(`${API_BASE}/budget`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setBudgets(data);
+        console.log("Data:");
+        console.log(data);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to fetch categories');
+      console.log("Failed to fetch categories");
+      console.log(error);
+    }
+  };
+
+
   return (
       <ScrollView>
       <View>
         <JSONTree data={catCounts} />
+        <JSONTree data={budgets} />
       </View>
     </ScrollView>
   );

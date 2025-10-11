@@ -6,6 +6,7 @@ const { initDB } = require('./database');
 const authRoutes = require('./routes/auth');
 const transactionRoutes = require('./routes/transactions');
 const categoryRoutes = require('./routes/categories');
+const budgetRoutes = require('./routes/budget');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/budget', budgetRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
