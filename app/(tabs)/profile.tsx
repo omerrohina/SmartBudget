@@ -9,7 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Trash2, DollarSign, TrendingUp, TrendingDown, Calendar } from 'lucide-react-native';
+import { Trash2, DollarSign, TrendingUp, TrendingDown, Calendar, UserRoundPen, Sun} from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_BASE = 'http://localhost:3001/api';
@@ -27,28 +27,33 @@ return (
 
 <View style={styles.section}>
   <TouchableOpacity style={styles.Button}>
+	 <UserRoundPen size={20} color="#f8fafc" style={styles.inputIcon} />
          <Text style={styles.ButtonText}>Change Password</Text>
   </TouchableOpacity>
-</View>
 
-
-<View style={styles.section}>
-  <TouchableOpacity style={styles.Button}>
+ <TouchableOpacity style={styles.Button}>
+         <Sun size={20} color="#f8fafc" style={styles.inputIcon} />
          <Text style={styles.ButtonText}>Change Theme</Text>
   </TouchableOpacity>
-</View>
 
+</View>
 
 <View style={styles.section}>
   <TouchableOpacity style={styles.submitButton}>
-         <Text style={styles.ButtonText}>Change Theme</Text>
+         <Text style={styles.ButtonText}>Logout</Text>
   </TouchableOpacity>
 </View>
 
+<View style={styles.section}>
+  <TouchableOpacity style={styles.submitButton}>
+         <Text style={styles.ButtonText}>Delete Account</Text>
+  </TouchableOpacity>
+</View>
 
 
 
 </ScrollView>
+
 );
 }
 
@@ -88,9 +93,11 @@ section: {
   },
 
 Button: {
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 20,
     backgroundColor: '#2563eb',
-    //borderRadius: 15,
+    borderRadius: 15,
   },
 ButtonText: {
     color: '#f8fafc', 
