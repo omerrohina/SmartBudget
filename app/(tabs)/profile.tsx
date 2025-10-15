@@ -16,6 +16,16 @@ const API_BASE = 'http://localhost:3001/api';
 
 export default function profile() {
 
+ const router = useRouter();
+
+
+const logout = async () => {
+    await AsyncStorage.multiRemove(['token', 'user']);
+    router.replace('/auth/login');
+  };
+
+
+
 
 return (
 
@@ -39,7 +49,7 @@ return (
 </View>
 
 <View style={styles.section}>
-  <TouchableOpacity style={styles.submitButton}>
+  <TouchableOpacity onPress={logout} style={styles.submitButton}>
          <Text style={styles.ButtonText}>Logout</Text>
   </TouchableOpacity>
 </View>
