@@ -16,6 +16,7 @@ const API_BASE = 'http://localhost:3001/api';
 
 export default function profile() {
 
+
 return (
 
 <ScrollView style={styles.container}>
@@ -23,8 +24,31 @@ return (
         <Text style={styles.title}>Profile</Text>
         <Text style={styles.subtitle}>Change your profile settings here</Text>
       </View>
-</ScrollView>
 
+<View style={styles.section}>
+  <TouchableOpacity style={styles.Button}>
+         <Text style={styles.ButtonText}>Change Password</Text>
+  </TouchableOpacity>
+</View>
+
+
+<View style={styles.section}>
+  <TouchableOpacity style={styles.Button}>
+         <Text style={styles.ButtonText}>Change Theme</Text>
+  </TouchableOpacity>
+</View>
+
+
+<View style={styles.section}>
+  <TouchableOpacity style={styles.submitButton}>
+         <Text style={styles.ButtonText}>Change Theme</Text>
+  </TouchableOpacity>
+</View>
+
+
+
+
+</ScrollView>
 );
 }
 
@@ -58,5 +82,33 @@ title: {
     fontSize: 16,
     color: '#94a3b8',
   },
+
+section: {
+    gap: 8,
+  },
+
+Button: {
+    padding: 20,
+    backgroundColor: '#2563eb',
+    //borderRadius: 15,
+  },
+ButtonText: {
+    color: '#f8fafc', 
+    fontWeight: '500',
+  },
+
+submitButton: {
+    borderRadius: 12,
+    paddingVertical: 16,
+    alignItems: 'center',
+    marginTop: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    backgroundColor: '#FF0000'
+  },
+
 
 });
