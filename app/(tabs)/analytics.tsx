@@ -141,7 +141,6 @@ export default function GetCategoryAnalytics() {
                 backgroundColor="transparent"
                 paddingLeft="15"
                 center={[5, 0]}
-                absolute
               />
             ) : (
               <View style={styles.emptyState}>
@@ -163,7 +162,6 @@ export default function GetCategoryAnalytics() {
                 backgroundColor="transparent"
                 paddingLeft="15"
                 center={[5, 0]}
-                absolute
               />
             ) : (
               <View style={styles.emptyState}>
