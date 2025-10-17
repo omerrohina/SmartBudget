@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNPickerSelect from 'react-native-picker-select';
 import { Calendar, DollarSign, Tag, FileText } from 'lucide-react-native';
+import Context from '../Context';
 
 const API_BASE = 'http://localhost:3001/api';
 
@@ -33,6 +34,7 @@ export default function AddTransaction() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const { increment } = useContext(Context);
 
   useEffect(() => {
     fetchCategories();
@@ -93,6 +95,7 @@ export default function AddTransaction() {
         setDescription('');
         setDate(new Date().toISOString().split('T')[0]);
         setCategoryId(categories.length > 0 ? categories[0].id : null);
+        increment();
         router.push('/(tabs)');
       } else {
         const errorData = await response.json();

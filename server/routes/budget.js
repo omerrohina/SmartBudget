@@ -68,6 +68,25 @@ router.post('/', authenticateToken, (req, res) => {
   );
 });
 
+// budget updates // TODO finish this
+router.post(`/:id`, authenticateToken, (req, res) => {
+  const budgetId = req.params.id;
+  db.run(
+    'DELETE FROM budget WHERE id = ? AND user_id = ?',
+    [budgetId, req.user.userId],
+    function(err) {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      if (this.changes === 0) {
+        return res.status(404).json({ error: 'Budget not found' });
+      }
+      res.json({ message: 'Transaction deleted successfully' });
+    }
+  );
+});
+
+
 router.delete(`/:id`, authenticateToken, (req, res) => {
   const budgetId = req.params.id;
   db.run(

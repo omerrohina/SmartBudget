@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,8 @@ import {
 import { useRouter } from 'expo-router';
 import { Trash2, DollarSign, TrendingUp, TrendingDown, Calendar } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+import Context from '../Context';
 
 const API_BASE = 'http://localhost:3001/api';
 
@@ -36,10 +38,11 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
   const router = useRouter();
+  const { count } = useContext(Context);
 
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, [count]);
 
   const checkAuth = async () => {
     try {
@@ -425,3 +428,4 @@ const styles = StyleSheet.create({
     padding: 4,
   },
 });
+
