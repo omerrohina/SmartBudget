@@ -62,7 +62,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
   const router = useRouter();
-  const { count } = useContext(Context);
+  const { count, increment } = useContext(Context);
 
   useEffect(() => {
     checkAuth();
@@ -140,14 +140,15 @@ export default function Dashboard() {
               });
 
               if (response.ok) {
+                increment();
                 fetchData();
               } else {
                 //Alert.alert('Error', 'Failed to delete transaction');
-                alert('Error', 'Failed to delete transaction');
+                alert('Error', 'Failed to delete transaction else');
               }
             } catch (error) {
               //Alert.alert('Error', 'Failed to delete transaction');
-              alert('Error', 'Failed to delete transaction');
+              alert('Error', 'Failed to delete transaction catch');
             }
           },
         },
