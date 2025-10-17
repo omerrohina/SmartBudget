@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PieChart } from 'react-native-chart-kit';
 import { Card } from 'react-native-paper';
+import Context from '../Context';
 
 const API_BASE = 'http://localhost:3001/api';
 const screenWidth = Dimensions.get('window').width - 32;
@@ -45,10 +46,11 @@ const categoryColors: { [key: string]: { type: 'income' | 'expense'; color: stri
 export default function GetCategoryAnalytics() {
   const [catCounts, setCatCounts] = useState<CategoryAnalytics[]>([]);
   const [loading, setLoading] = useState(true);
+  const { count } = useContext(Context);
 
   useEffect(() => {
     fetchCatCounts();
-  }, []);
+  }, [count]);
 
   // Fetch analytics data
   const fetchCatCounts = async () => {
