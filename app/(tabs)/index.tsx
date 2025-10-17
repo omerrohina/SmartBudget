@@ -7,6 +7,7 @@ import {
   RefreshControl,
   TouchableOpacity,
   Alert,
+  Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Trash2, DollarSign, TrendingUp, TrendingDown, Calendar } from 'lucide-react-native';
@@ -15,6 +16,29 @@ import { useFocusEffect } from '@react-navigation/native';
 import Context from '../Context';
 
 const API_BASE = 'http://localhost:3001/api';
+
+
+
+// from stack overflow
+// https://stackoverflow.com/questions/65481226/react-native-alert-alert-only-works-on-ios-and-android-not-web
+const alertPolyfill = (title, description, options, extra) => {
+    const result = window.confirm([title, description].filter(Boolean).join('\n'))
+
+    if (options) {
+      if (result) {
+          //const confirmOption = options.find(({ style }) => style !== 'cancel')
+          const confirmOption = options.find(({ style }) => style !== 'cancel')
+          confirmOption && confirmOption.onPress()
+      } else {
+          const cancelOption = options.find(({ style }) => style === 'cancel')
+          cancelOption && cancelOption.onPress()
+      }
+    }
+}
+
+const alert = Platform.OS === 'web' ? alertPolyfill : Alert.alert
+
+
 
 interface Transaction {
   id: number;
@@ -85,22 +109,29 @@ export default function Dashboard() {
         setTransactions(transactionsData);
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to fetch data');
+      alert('Error', 'Failed to fetch data');
+      //Alert.alert('Error', 'Failed to fetch data');
     } finally {
       setLoading(false);
     }
   };
 
   const deleteTransaction = async (id: number) => {
-    Alert.alert(
+    console.log(id);
+    //Alert.alert(
+    alert(
       'Delete Transaction',
       'Are you sure you want to delete this transaction?',
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel' 
+        },
         {
           text: 'Delete',
           style: 'destructive',
           onPress: async () => {
+            console.log('Delete pressed');
             try {
               const token = await AsyncStorage.getItem('token');
               const response = await fetch(`${API_BASE}/transactions/${id}`, {
@@ -111,10 +142,12 @@ export default function Dashboard() {
               if (response.ok) {
                 fetchData();
               } else {
-                Alert.alert('Error', 'Failed to delete transaction');
+                //Alert.alert('Error', 'Failed to delete transaction');
+                alert('Error', 'Failed to delete transaction');
               }
             } catch (error) {
-              Alert.alert('Error', 'Failed to delete transaction');
+              //Alert.alert('Error', 'Failed to delete transaction');
+              alert('Error', 'Failed to delete transaction');
             }
           },
         },
