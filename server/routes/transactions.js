@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Get all transactions for user
 router.get('/', authenticateToken, (req, res) => {
-  const { startDate, endDate, category, type } = req.query;
+  const { startDate, endDate, category, type, budget_id} = req.query;
   
   let query = `
     SELECT t.*, c.name as category_name, c.color as category_color 
@@ -34,6 +34,10 @@ router.get('/', authenticateToken, (req, res) => {
   if (type) {
     query += ' AND t.type = ?';
     params.push(type);
+  }
+  if (budget_id) {
+    query += ' AND t.budget_id = ?';
+    params.push(budget_id);
   }
 
   query += ' ORDER BY t.date DESC, t.created_at DESC';

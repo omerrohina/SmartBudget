@@ -24,20 +24,29 @@ interface Category {
   color: string;
 }
 
+interface Budget {
+    id: number;
+    title: string;
+    amount: number;
+}
+
 export default function AddTransaction() {
   const router = useRouter();
   const [type, setType] = useState<'income' | 'expense'>('expense');
   const [amount, setAmount] = useState('');
   const [categoryId, setCategoryId] = useState<number | null>(null);
+  const [budgetId, setBudgetId] = useState<number | null>(null);
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [budgets, setBudgets] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const { increment } = useContext(Context);
 
   useEffect(() => {
     fetchCategories();
+    fetchBudgets();
   }, [type]);
 
   const fetchCategories = async () => {
@@ -53,9 +62,30 @@ export default function AddTransaction() {
         if (data.length > 0 && !categoryId) {
           setCategoryId(data[0].id);
         }
+        console.log(categories);
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to fetch categories');
+    }
+  };
+
+  const fetchBudgets = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const response = await fetch(`${API_BASE}/budget`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setBudgets(data);
+        if (data.length > 0 && !categoryId) {
+          setCategoryId(data[0].id);
+        }
+        console.log(budgets);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to fetch budgets');
     }
   };
 
@@ -172,6 +202,26 @@ export default function AddTransaction() {
               value={categoryId}
               placeholder={{ label: 'Select a category', value: null, color: '#94a3b8' }}
               items={categories.map(c => ({ label: c.name, value: c.id }))}
+              style={{
+                inputIOS: styles.picker,
+                inputAndroid: styles.picker,
+                placeholder: { color: '#94a3b8' },
+              }}
+              useNativeAndroidPickerStyle={false}
+            />
+          </View>
+        </View>
+
+        {/* Budget */}
+        <View style={styles.section}>
+          <Text style={styles.label}>Budget</Text>
+          <View style={styles.inputContainer}>
+            <Tag size={20} color="#f8fafc" style={styles.inputIcon} />
+            <RNPickerSelect
+              onValueChange={(value) => setBudgetId(value)}
+              value={budgetId}
+              placeholder={{ label: 'Select a budget', value: null, color: '#94a3b8' }}
+              items={budgets.map(c => ({ label: c.title, value: c.id }))}
               style={{
                 inputIOS: styles.picker,
                 inputAndroid: styles.picker,
