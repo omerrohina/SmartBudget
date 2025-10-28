@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -25,9 +25,9 @@ interface Category {
 }
 
 interface Budget {
-    id: number;
-    title: string;
-    amount: number;
+  id: number;
+  title: string;
+  amount: number;
 }
 
 export default function AddTransaction() {
@@ -39,7 +39,7 @@ export default function AddTransaction() {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [budgets, setBudgets] = useState<Category[]>([]);
+  const [budgets, setBudgets] = useState<Budget[]>([]);
   const [loading, setLoading] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const { increment } = useContext(Context);
@@ -62,7 +62,6 @@ export default function AddTransaction() {
         if (data.length > 0 && !categoryId) {
           setCategoryId(data[0].id);
         }
-        console.log(categories);
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to fetch categories');
@@ -79,10 +78,7 @@ export default function AddTransaction() {
       if (response.ok) {
         const data = await response.json();
         setBudgets(data);
-        if (data.length > 0 && !categoryId) {
-          setCategoryId(data[0].id);
-        }
-        console.log(budgets);
+        // no default budget selected by design
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to fetch budgets');
@@ -114,6 +110,7 @@ export default function AddTransaction() {
           type,
           amount: parseFloat(amount),
           category_id: categoryId,
+          budget_id: budgetId, // include selected budget if any
           description,
           date,
         }),
@@ -125,6 +122,7 @@ export default function AddTransaction() {
         setDescription('');
         setDate(new Date().toISOString().split('T')[0]);
         setCategoryId(categories.length > 0 ? categories[0].id : null);
+        setBudgetId(null);
         increment();
         router.push('/(tabs)');
       } else {
@@ -212,24 +210,34 @@ export default function AddTransaction() {
           </View>
         </View>
 
-        {/* Budget */}
-        <View style={styles.section}>
-          <Text style={styles.label}>Budget</Text>
-          <View style={styles.inputContainer}>
-            <Tag size={20} color="#f8fafc" style={styles.inputIcon} />
+        {/* Budget (Improved Section) */}
+        <View style={[styles.section, styles.budgetSection]}>
+          <Text style={styles.label}>Budget (Optional)</Text>
+          <View style={[styles.inputContainer, styles.budgetContainer]}>
+            <Tag size={20} color={budgetId ? '#10b981' : '#38bdf8'} style={styles.inputIcon} />
             <RNPickerSelect
               onValueChange={(value) => setBudgetId(value)}
               value={budgetId}
-              placeholder={{ label: 'Select a budget', value: null, color: '#94a3b8' }}
-              items={budgets.map(c => ({ label: c.title, value: c.id }))}
+              placeholder={{
+                label: 'No budget selected',
+                value: null,
+                color: '#64748b',
+              }}
+              items={budgets.map((b) => ({
+                label: b.title,
+                value: b.id,
+              }))}
               style={{
                 inputIOS: styles.picker,
                 inputAndroid: styles.picker,
-                placeholder: { color: '#94a3b8' },
+                placeholder: { color: '#64748b' },
               }}
               useNativeAndroidPickerStyle={false}
             />
           </View>
+          <Text style={styles.helperText}>
+            You can link this transaction to a budget — or leave it unassigned.
+          </Text>
         </View>
 
         {/* Date */}
@@ -319,10 +327,10 @@ export default function AddTransaction() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a', 
+    backgroundColor: '#0f172a',
   },
   header: {
-    backgroundColor: '#1e293b', 
+    backgroundColor: '#1e293b',
     padding: 20,
     paddingTop: 60,
     borderBottomWidth: 1,
@@ -331,12 +339,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#f8fafc', 
+    color: '#f8fafc',
     marginBottom: 4,
   },
   subtitle: {
     fontSize: 16,
-    color: '#94a3b8', 
+    color: '#94a3b8',
   },
   form: {
     padding: 20,
@@ -348,12 +356,12 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#f8fafc', 
+    color: '#f8fafc',
     marginBottom: 8,
   },
   typeContainer: {
     flexDirection: 'row',
-    backgroundColor: '#1e293b', 
+    backgroundColor: '#1e293b',
     borderRadius: 12,
     padding: 4,
   },
@@ -364,7 +372,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   typeButtonActive: {
-    backgroundColor: '#2563eb', 
+    backgroundColor: '#2563eb',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
@@ -374,15 +382,15 @@ const styles = StyleSheet.create({
   typeText: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#94a3b8', 
+    color: '#94a3b8',
   },
   typeTextActive: {
-    color: '#f8fafc', 
+    color: '#f8fafc',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1e293b', 
+    backgroundColor: '#1e293b',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#334155',
@@ -396,16 +404,16 @@ const styles = StyleSheet.create({
   },
   inputIcon: {
     marginRight: 12,
-    color: '#f8fafc', 
+    color: '#f8fafc',
   },
   input: {
     flex: 1,
     fontSize: 16,
-    color: '#f8fafc', 
+    color: '#f8fafc',
   },
   picker: {
     flex: 1,
-    color: '#f8fafc', 
+    color: '#f8fafc',
     height: 40,
   },
   dateText: {
@@ -486,5 +494,21 @@ const styles = StyleSheet.create({
   },
   modalButtonTextPrimary: {
     color: '#f8fafc',
+  },
+  // 🌈 New budget-related styles
+  budgetSection: {
+    borderTopWidth: 1,
+    borderColor: '#334155',
+    paddingTop: 12,
+    marginTop: 8,
+  },
+  budgetContainer: {
+    borderColor: '#38bdf8', // light blue accent
+  },
+  helperText: {
+    fontSize: 13,
+    color: '#94a3b8',
+    marginTop: 4,
+    marginLeft: 4,
   },
 });
