@@ -37,10 +37,10 @@ router.get('/', authenticateToken, (req, res) => {
 });
 
 router.post('/', authenticateToken, (req, res) => {
-  const { title, amount, description, date } = req.query;
-  
+  const { title, amount, description, date } = req.body;
+
   if (!title || !amount || !date) {
-    return res.status(400).json({ error: 'Type, amount, and date are required' });
+    return res.status(400).json({ error: 'Title, amount, and date are required' });
   }
 
   if (amount <= 0) {
@@ -50,7 +50,7 @@ router.post('/', authenticateToken, (req, res) => {
   db.run(
     `INSERT INTO budget (user_id, title, amount, description, date) 
       VALUES (?, ?, ?, ?, ?)`,
-      [req.user.userId, type, amount, description || '', date],
+      [req.user.userId, title, amount, description || '', date],
       function(err) {
         if (err) {
           return res.status(500).json({ error: `Failed to add budget` });
