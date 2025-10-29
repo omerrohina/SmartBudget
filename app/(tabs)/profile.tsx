@@ -7,6 +7,12 @@ import {
   RefreshControl,
   TouchableOpacity,
   Alert,
+  Button,
+  SafeAreaView,
+  SafeAreaProvider,
+  Modal,
+  TextInput,
+  Dimensions
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Trash2, DollarSign, TrendingUp, TrendingDown, Calendar, UserRoundPen, Sun} from 'lucide-react-native';
@@ -25,6 +31,21 @@ const logout = async () => {
   };
 
 
+const showBasicAlert = () => {
+      Alert.alert(
+        'Welcome!', // Title of the alert
+        'This is a basic alert message.', // Message of the alert
+        [
+          {
+            text: 'OK', // Text displayed on the button
+            onPress: () => console.log('OK Pressed'), // Function to execute when the button is pressed
+          },
+        ]
+      );
+    };
+
+
+
 
 
 return (
@@ -36,16 +57,15 @@ return (
       </View>
 
 <View style={styles.section}>
-  <TouchableOpacity style={styles.Button}>
+  <TouchableOpacity style={styles.Button} onPress={() => router.navigate('/auth/changePassword')}>
 	 <UserRoundPen size={20} color="#f8fafc" style={styles.inputIcon} />
          <Text style={styles.ButtonText}>Change Password</Text>
-  </TouchableOpacity>
+  </TouchableOpacity>     
 
  <TouchableOpacity style={styles.Button}>
          <Sun size={20} color="#f8fafc" style={styles.inputIcon} />
          <Text style={styles.ButtonText}>Change Theme</Text>
   </TouchableOpacity>
-
 </View>
 
 <View style={styles.section}>
@@ -55,7 +75,7 @@ return (
 </View>
 
 <View style={styles.section}>
-  <TouchableOpacity style={styles.submitButton}>
+  <TouchableOpacity style={styles.submitButton} onPress={showBasicAlert}>
          <Text style={styles.ButtonText}>Delete Account</Text>
   </TouchableOpacity>
 </View>
@@ -127,5 +147,7 @@ submitButton: {
     backgroundColor: '#FF0000'
   },
 
+
+      
 
 });
