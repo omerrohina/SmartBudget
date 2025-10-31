@@ -211,10 +211,11 @@ export default function AddTransaction() {
         </View>
 
         {/* Budget (Improved Section) */}
+        {type === 'expense' && (
         <View style={[styles.section, styles.budgetSection]}>
           <Text style={styles.label}>Budget (Optional)</Text>
           <View style={[styles.inputContainer, styles.budgetContainer]}>
-            <Tag size={20} color={budgetId ? '#10b981' : '#38bdf8'} style={styles.inputIcon} />
+            <Tag size={20} color="#f8fafc" style={styles.inputIcon} />
             <RNPickerSelect
               onValueChange={(value) => setBudgetId(value)}
               value={budgetId}
@@ -235,11 +236,9 @@ export default function AddTransaction() {
               useNativeAndroidPickerStyle={false}
             />
           </View>
-          <Text style={styles.helperText}>
-            You can link this transaction to a budget — or leave it unassigned.
-          </Text>
         </View>
-
+        )}
+        
         {/* Date */}
         <View style={styles.section}>
           <Text style={styles.label}>Date</Text>
@@ -495,7 +494,6 @@ const styles = StyleSheet.create({
   modalButtonTextPrimary: {
     color: '#f8fafc',
   },
-  // 🌈 New budget-related styles
   budgetSection: {
     borderTopWidth: 1,
     borderColor: '#334155',
@@ -503,7 +501,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   budgetContainer: {
-    borderColor: '#38bdf8', // light blue accent
+    borderColor: '#334155', 
   },
   helperText: {
     fontSize: 13,

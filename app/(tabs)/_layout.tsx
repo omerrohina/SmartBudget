@@ -56,7 +56,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="budgeting"
+        name="add-budget"
         options={{
           title: 'Budgeting',
           tabBarIcon: ({ size, color }) => (
