@@ -61,6 +61,13 @@ const initDB = () => {
         )
       `);
 
+      // Create budget view
+      db.run(`
+        CREATE VIEW IF NOT EXISTS main.liveBudget AS 
+        SELECT b.*, b.amount - total(t.amount) as remaining from budget b left join transactions t on t.budget_id = b.id group by t.budget_id;
+      `);
+
+
       // Insert default categories
       // Check if categories already exist
       db.get('SELECT COUNT(*) as count FROM categories', (err, row) => {

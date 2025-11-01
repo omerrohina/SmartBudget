@@ -52,7 +52,7 @@ router.get('/', authenticateToken, (req, res) => {
 
 // Add transaction
 router.post('/', authenticateToken, (req, res) => {
-  const { type, amount, category_id, description, date } = req.body;
+  const { type, amount, category_id, budget_id, description, date } = req.body;
   console.log(req.body);
 
   if (!type || !amount || !date) {
@@ -68,8 +68,10 @@ router.post('/', authenticateToken, (req, res) => {
   }
 
   db.run(
-    'INSERT INTO transactions (user_id, type, amount, category_id, description, date) VALUES (?, ?, ?, ?, ?, ?)',
-    [req.user.userId, type, amount, category_id || null, description || '', date],
+    `INSERT INTO transactions (user_id, type, amount, category_id, budget_id, description, date) 
+      VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    [req.user.userId, type, amount, category_id || null, 
+        budget_id || null, description || '', date],
     function(err) {
       if (err) {
         return res.status(500).json({ error: 'Failed to add transaction' });

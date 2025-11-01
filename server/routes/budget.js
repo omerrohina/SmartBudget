@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', authenticateToken, (req, res) => {
   const { title, startDate, endDate } = req.query;
   
-  let query = 'SELECT * FROM budget WHERE user_id = ?';
+  let query = 'SELECT * FROM liveBudget WHERE user_id = ?';
   let params = [req.user.userId];
 
   if (startDate) {
