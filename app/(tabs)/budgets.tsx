@@ -23,7 +23,7 @@ interface Budgets {
   description?: string;
   [key: string]: any;
 }
-
+/*
 export default function GetCategoryAnalytics() {
   const [budgets, setBudgets] = useState<CategoryAnalytics[]>([]);
   const [loading, setLoading] = useState(true);
@@ -65,7 +65,7 @@ export default function GetCategoryAnalytics() {
 
       );
 }
-
+*/
 // Styles
 const styles = StyleSheet.create({
   container: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
+import Context from '../Context';
 
 const API_BASE = 'http://localhost:3001/api';
 
@@ -28,6 +29,7 @@ export default function AddTransaction() {
   const [date, setDate] = useState('');
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const router = useRouter();
+  const { count, increment } = useContext(Context);
 
   const fetchBudgets = async () => {
     try {
@@ -48,7 +50,7 @@ export default function AddTransaction() {
 
   useEffect(() => {
     fetchBudgets();
-  }, []);
+  }, [count]);
 
   const handleSubmit = async () => {
     if (!title || !amount || !date) {
@@ -79,6 +81,7 @@ export default function AddTransaction() {
         setDescription('');
         setDate('');
         fetchBudgets();
+        increment();
       } else {
         const errData = await response.json();
         Alert.alert('Error', errData.error || 'Failed to create budget');
@@ -145,7 +148,7 @@ export default function AddTransaction() {
             <View key={b.id} style={styles.budgetCard}>
               <Text style={styles.budgetTitle}>{b.title}</Text>
               <Text style={styles.budgetInfo}>
-                ${b.amount.toFixed(2)} — {b.date}
+                ${b.remaining.toFixed(2)} / ${b.amount.toFixed(2)} — {b.date}
               </Text>
               {b.description ? (
                 <Text style={styles.budgetInfo}>{b.description}</Text>

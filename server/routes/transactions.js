@@ -53,7 +53,7 @@ router.get('/', authenticateToken, (req, res) => {
 // Add transaction
 router.post('/', authenticateToken, (req, res) => {
   const { type, amount, category_id, budget_id, description, date } = req.body;
-  console.log(req.body);
+  //console.log(req.body);
 
   if (!type || !amount || !date) {
     return res.status(400).json({ error: 'Type, amount, and date are required' });
