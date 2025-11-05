@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Chrome as Home, CirclePlus as PlusCircle, ChartBar as BarChart3, User, ClipboardPenLine } from 'lucide-react-native';
+import { Chrome as Home, CirclePlus as PlusCircle, ChartBar as BarChart3, User } from 'lucide-react-native';
 
 import { CounterProvider } from '../Context';
 
@@ -60,7 +60,7 @@ export default function TabLayout() {
         options={{
           title: 'Budgeting',
           tabBarIcon: ({ size, color }) => (
-            <ClipboardPenLine size={size} color={color} />
+            <BarChart3 size={size} color={color} />
           ),
         }}
       />

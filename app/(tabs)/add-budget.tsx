@@ -11,9 +11,6 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import Context from '../Context';
-import { Calendar, DollarSign, Tag, FileText} from 'lucide-react-native';
-
-
 
 const API_BASE = 'http://localhost:3001/api';
 
@@ -96,82 +93,52 @@ export default function AddTransaction() {
   };
 
   return (
-
     <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.header}>Create New Budget</Text>
 
-   <View style={styles.header}>
-        <Text style={styles.title}>Create New Budget</Text>
-        <Text style={styles.subtitle}>Add a new budget to manage your income and expenses</Text>
-      </View>
-
-
-
-     <View style={styles.section}>
       <Text style={styles.label}>Title</Text>
-	<View style={styles.inputContainer}>
-	 <Tag size={20} color="#f8fafc" style={styles.inputIcon} />
       <TextInput
-        style={styles.textinput}
+        style={styles.input}
         placeholder="e.g. Food Budget"
         placeholderTextColor="#64748b"
         value={title}
         onChangeText={setTitle}
       />
-	</View>
-     </View>
 
-
-     <View style={styles.section}>
-        <Text style={styles.label}>Amount</Text>
-	 <View style={styles.inputContainer}>
-	<DollarSign size={20} color="#f8fafc" style={styles.inputIcon} />
+      <Text style={styles.label}>Amount</Text>
       <TextInput
-        style={styles.textinput}
-        placeholder="0.00"
+        style={styles.input}
+        placeholder="$ 0.00"
         placeholderTextColor="#94a3b8"
         keyboardType="numeric"
         value={amount}
         onChangeText={setAmount}
       />
-	 </View>
-     </View>
 
-
-     <View style={styles.section}>
-       <Text style={styles.label}>Description (optional)</Text>
-	<View style={styles.inputContainer}>
-	 <FileText size={20} color="#f8fafc" style={styles.inputIcon} />
+      <Text style={styles.label}>Description (optional)</Text>
       <TextInput
-        style={styles.textinput}
+        style={styles.input}
         placeholder="Add a note..."
         placeholderTextColor="#64748b"
         value={description}
         onChangeText={setDescription}
       />
-	</View>
-     </View>
 
-
-     <View style={styles.section}>
       <Text style={styles.label}>Date</Text>
-        <View style={styles.inputContainer}>
-         <Calendar size={20} color="#f8fafc" style={styles.inputIcon} />
       <TextInput
-        style={styles.textinput}
+        style={styles.input}
         placeholder="MM-DD-YYYY"
         placeholderTextColor="#64748b"
         value={date}
         onChangeText={setDate}
       />
-        </View>
-     </View>
 
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Create Budget</Text>
       </TouchableOpacity>
 
       <View style={{ marginTop: 40 }}>
-        <Text style={styles.label}>Your Budgets:</Text>
+        <Text style={styles.label}>Your Budgets</Text>
         {budgets.length === 0 ? (
           <Text style={{ color: '#94a3b8', marginTop: 8 }}>
             You haven’t created any budgets yet.
@@ -198,21 +165,19 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#0f172a',
+    padding: 20,
   },
   header: {
-    backgroundColor: '#1e293b',
-    padding: 20,
-    paddingTop: 60,
-    borderBottomWidth: 1,
-    borderBottomColor: '#334155',
-
+    fontSize: 26,
+    fontWeight: '700',
+    color: '#f8fafc',
+    marginBottom: 20,
   },
   label: {
     color: '#f8fafc',
     fontSize: 16,
     marginBottom: 6,
     marginTop: 14,
-    fontWeight: '600',
   },
   input: {
     backgroundColor: '#1e293b',
@@ -252,49 +217,4 @@ const styles = StyleSheet.create({
     color: '#94a3b8',
     marginTop: 4,
   },
-
-inputIcon: {
-    marginRight: 12,
-    color: '#f8fafc',
-  },
-
-section: {
-    gap: 8,
-  },
-
- inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#1e293b',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#334155',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
-  },
-
-textinput: {
-    flex: 1,
-    fontSize: 16,
-    color: '#f8fafc',
-  },
-
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#f8fafc',
-    marginBottom: 4,
-  },
-
- subtitle: {
-    fontSize: 16,
-    color: '#94a3b8',
-  },
-
-
 });
