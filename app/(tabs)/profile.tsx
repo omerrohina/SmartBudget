@@ -226,7 +226,7 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#0f172a',
   },
   centered: {
     justifyContent: 'center',
@@ -241,24 +241,24 @@ const styles = StyleSheet.create({
     color: '#ef4444',
   },
   header: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b',
     padding: 20,
     paddingTop: 60,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: '#0f172a',
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#f8fafc',
     marginBottom: 4,
   },
   subtitle: {
     fontSize: 16,
-    color: '#64748b',
+    color: '#94a3b8',
   },
   userCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b',
     margin: 20,
     borderRadius: 16,
     padding: 24,
@@ -283,12 +283,12 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#f8fafc',
     marginBottom: 4,
   },
   userEmail: {
     fontSize: 16,
-    color: '#64748b',
+    color: '#94a3b8',
     marginBottom: 16,
   },
   memberSince: {
@@ -307,11 +307,11 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#f8fafc',
     marginBottom: 12,
   },
   infoCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b',
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
   },
   infoItemBorder: {
     borderTopWidth: 1,
-    borderTopColor: '#f1f5f9',
+    borderTopColor: '#0f172a',
   },
   infoLeft: {
     flexDirection: 'row',
@@ -342,10 +342,10 @@ const styles = StyleSheet.create({
   infoValue: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#1e293b',
+    color: '#94a3b8',
   },
   settingItem: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b',
     borderRadius: 12,
     padding: 16,
     flexDirection: 'row',
@@ -365,14 +365,14 @@ const styles = StyleSheet.create({
   settingText: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#374151',
+    color: '#94a3b8',
   },
   settingArrow: {
     fontSize: 24,
     color: '#94a3b8',
   },
   actionButton: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1e293b',
     borderRadius: 12,
     padding: 16,
     flexDirection: 'row',
@@ -387,8 +387,8 @@ const styles = StyleSheet.create({
   },
   dangerButton: {
     borderWidth: 1,
-    borderColor: '#fecaca',
-    backgroundColor: '#fef2f2',
+    borderColor: '#FF000D',
+    backgroundColor: '#1e293b',
   },
   actionText: {
     fontSize: 16,
