@@ -36,6 +36,7 @@ export default function AddTransaction() {
   const [amount, setAmount] = useState('');
   const [categoryId, setCategoryId] = useState<number | null>(null);
   const [budgetId, setBudgetId] = useState<number | null>(null);
+  const [budgetPickerKey, setBudgetPickerKey] = useState(0); 
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -47,6 +48,13 @@ export default function AddTransaction() {
   useEffect(() => {
     fetchCategories();
     fetchBudgets();
+  }, [type]);
+
+  useEffect(() => {
+    if (type === 'income') {
+      setBudgetId(null);
+      setBudgetPickerKey((k) => k + 1);
+    }
   }, [type]);
 
   const fetchCategories = async () => {
@@ -78,7 +86,6 @@ export default function AddTransaction() {
       if (response.ok) {
         const data = await response.json();
         setBudgets(data);
-        // no default budget selected by design
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to fetch budgets');
@@ -100,29 +107,41 @@ export default function AddTransaction() {
 
     try {
       const token = await AsyncStorage.getItem('token');
+
+      // Only include budget_id if one is selected
+      const payload: any = {
+        type,
+        amount: parseFloat(amount),
+        category_id: categoryId,
+        description,
+        date,
+      };
+      if (budgetId != null) {
+        payload.budget_id = budgetId;
+      }
+
       const response = await fetch(`${API_BASE}/transactions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          type,
-          amount: parseFloat(amount),
-          category_id: categoryId,
-          budget_id: budgetId, // include selected budget if any
-          description,
-          date,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
         Alert.alert('Success', 'Transaction added successfully');
+
+        // Reset form
         setAmount('');
         setDescription('');
         setDate(new Date().toISOString().split('T')[0]);
         setCategoryId(categories.length > 0 ? categories[0].id : null);
+
+        // fully reset the budget selection to "No budget selected"
         setBudgetId(null);
+        setBudgetPickerKey((k) => k + 1);
+
         increment();
         router.push('/(tabs)');
       } else {
@@ -150,7 +169,6 @@ export default function AddTransaction() {
 
       {/* Form */}
       <View style={styles.form}>
-
         {/* Transaction Type */}
         <View style={styles.section}>
           <Text style={styles.label}>Transaction Type</Text>
@@ -199,7 +217,7 @@ export default function AddTransaction() {
               onValueChange={(value) => setCategoryId(value)}
               value={categoryId}
               placeholder={{ label: 'Select a category', value: null, color: '#94a3b8' }}
-              items={categories.map(c => ({ label: c.name, value: c.id }))}
+              items={categories.map((c) => ({ label: c.name, value: c.id }))}
               style={{
                 inputIOS: styles.picker,
                 inputAndroid: styles.picker,
@@ -210,35 +228,36 @@ export default function AddTransaction() {
           </View>
         </View>
 
-        {/* Budget (Improved Section) */}
+        {/* Budget (Optional) */}
         {type === 'expense' && (
-        <View style={[styles.section, styles.budgetSection]}>
-          <Text style={styles.label}>Budget (Optional)</Text>
-          <View style={[styles.inputContainer, styles.budgetContainer]}>
-            <Tag size={20} color="#f8fafc" style={styles.inputIcon} />
-            <RNPickerSelect
-              onValueChange={(value) => setBudgetId(value)}
-              value={budgetId}
-              placeholder={{
-                label: 'No budget selected',
-                value: null,
-                color: '#64748b',
-              }}
-              items={budgets.map((b) => ({
-                label: b.title,
-                value: b.id,
-              }))}
-              style={{
-                inputIOS: styles.picker,
-                inputAndroid: styles.picker,
-                placeholder: { color: '#64748b' },
-              }}
-              useNativeAndroidPickerStyle={false}
-            />
+          <View style={[styles.section, styles.budgetSection]}>
+            <Text style={styles.label}>Budget (Optional)</Text>
+            <View style={[styles.inputContainer, styles.budgetContainer]}>
+              <Tag size={20} color="#f8fafc" style={styles.inputIcon} />
+              <RNPickerSelect
+                key={`budget-${budgetPickerKey}`} 
+                onValueChange={(value) => setBudgetId(value)}
+                value={budgetId ?? null}
+                placeholder={{
+                  label: 'No budget selected',
+                  value: null,
+                  color: '#64748b',
+                }}
+                items={budgets.map((b) => ({
+                  label: b.title,
+                  value: b.id,
+                }))}
+                style={{
+                  inputIOS: styles.picker,
+                  inputAndroid: styles.picker,
+                  placeholder: { color: '#64748b' },
+                }}
+                useNativeAndroidPickerStyle={false}
+              />
+            </View>
           </View>
-        </View>
         )}
-        
+
         {/* Date */}
         <View style={styles.section}>
           <Text style={styles.label}>Date</Text>
@@ -282,7 +301,6 @@ export default function AddTransaction() {
             {loading ? 'Adding...' : `Add ${type === 'income' ? 'Income' : 'Expense'}`}
           </Text>
         </TouchableOpacity>
-
       </View>
 
       {/* Date Picker Modal */}
@@ -313,7 +331,9 @@ export default function AddTransaction() {
                 style={[styles.modalButton, styles.modalButtonPrimary]}
                 onPress={() => setShowDatePicker(false)}
               >
-                <Text style={[styles.modalButtonText, styles.modalButtonTextPrimary]}>Done</Text>
+                <Text style={[styles.modalButtonText, styles.modalButtonTextPrimary]}>
+                  Done
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -501,7 +521,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   budgetContainer: {
-    borderColor: '#334155', 
+    borderColor: '#334155',
   },
   helperText: {
     fontSize: 13,
