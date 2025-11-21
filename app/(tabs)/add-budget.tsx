@@ -83,8 +83,8 @@ export default function AddTransaction() {
         setAmount('');
         setDescription('');
         setDate('');
-        fetchBudgets();
         increment();
+        fetchBudgets();
       } else {
         const errData = await response.json();
         Alert.alert('Error', errData.error || 'Failed to create budget');

@@ -43,12 +43,12 @@ export default function AddTransaction() {
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [loading, setLoading] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const { increment } = useContext(Context);
+  const { count, increment } = useContext(Context);
 
   useEffect(() => {
     fetchCategories();
     fetchBudgets();
-  }, [type]);
+  }, [type, count]);
 
   useEffect(() => {
     if (type === 'income') {
