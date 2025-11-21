@@ -64,7 +64,8 @@ const initDB = () => {
       // Create budget view
       db.run(`
         CREATE VIEW IF NOT EXISTS liveBudget AS 
-        SELECT b.*, b.amount - total(t.amount) as remaining from budget b left join transactions t on t.budget_id = b.id group by b.id;
+        SELECT b.*, b.amount - total(t.amount) as remaining FROM 
+	budget b LEFT JOIN transactions t ON t.budget_id = b.id GROUP BY b.id;
       `);
 
 
