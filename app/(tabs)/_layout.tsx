@@ -2,6 +2,7 @@ import { Tabs } from 'expo-router';
 import { Chrome as Home, CirclePlus as PlusCircle, ChartBar as BarChart3, User, ClipboardPenLine } from 'lucide-react-native';
 
 import { CounterProvider } from '../Context';
+import "./styles.css";
 
 export default function TabLayout() {
   return (

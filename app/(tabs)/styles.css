@@ -1,0 +1,17 @@
+/* Hide default browser date picker icon but keep click area */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0 !important;
+  cursor: pointer;
+}
+
+/* Remove extra spin buttons on some browsers */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+  display: none !important;
+}
+
+/* Firefox removes icon */
+input[type="date"] {
+  -moz-appearance: textfield;
+}
+
