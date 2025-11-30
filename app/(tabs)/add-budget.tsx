@@ -86,17 +86,19 @@ export default function AddBudget() {
       });
 
       if (response.ok) {
-        const created = await response.json();
+        //const created = await response.json();
 
         // 💡 Ensure bottom list recognizes it
+        /*
         const normalized: Budget = {
           ...created,
           id: created.id ?? created._id ?? Date.now(),
           remaining: created.remaining ?? created.amount,
         };
+        */
 
-        setBudgets((prev) => [...prev, normalized]);
-        await fetchBudgets(); // 🔥 ensure consistent UI without refresh
+        //setBudgets((prev) => [...prev, normalized]);
+        //await fetchBudgets(); // 🔥 ensure consistent UI without refresh
 
         Alert.alert('Success', 'Budget created successfully');
 
@@ -105,7 +107,7 @@ export default function AddBudget() {
         setDescription('');
         setDate(formatDateLocal(new Date()));
         increment();
-        router.push('/(tabs)');
+        //router.push('/(tabs)');
       } else {
         Alert.alert('Error', 'Failed to create budget');
       }
